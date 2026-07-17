@@ -30,6 +30,7 @@ type Milestone = {
   id: number;
   title: string;
   dueDate: string;
+  paymentAmount: number;
 };
 
 type PassDetails = {
@@ -38,6 +39,8 @@ type PassDetails = {
   hubName: string;
   workDate: string;
   time: string;
+  firstMilestonePayment: number;
+  serviceFee: number;
 };
 
 type HubOption = {
@@ -172,8 +175,8 @@ export default function Home() {
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("17:00");
   const [milestones, setMilestones] = useState<Milestone[]>([
-    { id: 1, title: "Client review and final revisions", dueDate: "2026-07-30" },
-    { id: 2, title: "Final files and brand handover", dueDate: "2026-08-14" },
+    { id: 1, title: "Client review and final revisions", dueDate: "2026-07-30", paymentAmount: 225000 },
+    { id: 2, title: "Final files and brand handover", dueDate: "2026-08-14", paymentAmount: 225000 },
   ]);
   const [feeAccepted, setFeeAccepted] = useState(false);
   const [formError, setFormError] = useState("");
@@ -181,15 +184,21 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
 
   const serviceFee = useMemo(() => projectValue * 0.05, [projectValue]);
+  const firstMilestonePayment = milestones[0]?.paymentAmount || 0;
+  const firstMilestoneBalance = Math.max(firstMilestonePayment - serviceFee, 0);
+  const totalMilestonePayments = useMemo(
+    () => milestones.reduce((total, milestone) => total + (milestone.paymentAmount || 0), 0),
+    [milestones],
+  );
 
   function addMilestone() {
     setMilestones((current) => [
       ...current,
-      { id: Date.now(), title: "", dueDate: endDate },
+      { id: Date.now(), title: "", dueDate: endDate, paymentAmount: 0 },
     ]);
   }
 
-  function updateMilestone(id: number, key: "title" | "dueDate", value: string) {
+  function updateMilestone(id: number, key: "title" | "dueDate" | "paymentAmount", value: string | number) {
     setMilestones((current) =>
       current.map((milestone) =>
         milestone.id === id ? { ...milestone, [key]: value } : milestone,
@@ -231,6 +240,8 @@ export default function Home() {
       hubName,
       workDate,
       time: `${startTime} – ${endTime}`,
+      firstMilestonePayment,
+      serviceFee,
     });
     setFormError("");
     setCopied(false);
@@ -259,6 +270,8 @@ export default function Home() {
         hub: pass.hubName,
         date: pass.workDate,
         time: pass.time,
+        firstMilestonePayment: pass.firstMilestonePayment,
+        hubFeeDeducted: pass.serviceFee,
       })
     : "";
 
@@ -413,7 +426,7 @@ export default function Home() {
                 <div className="milestone-header">
                   <div>
                     <h3>Project milestones</h3>
-                    <p>Add the key outcomes you plan to complete.</p>
+                    <p>Add the key outcomes and expected milestone payments.</p>
                   </div>
                   <button type="button" onClick={addMilestone}><Plus size={16} /> Add milestone</button>
                 </div>
@@ -434,11 +447,34 @@ export default function Home() {
                         value={milestone.dueDate}
                         onChange={(event) => updateMilestone(milestone.id, "dueDate", event.target.value)}
                       />
+                      <div className="milestone-payment-input">
+                        <span>NGN</span>
+                        <input
+                          aria-label={`Milestone ${index + 1} payment amount`}
+                          min={0}
+                          placeholder="Payment"
+                          type="number"
+                          value={milestone.paymentAmount}
+                          onChange={(event) => updateMilestone(milestone.id, "paymentAmount", Number(event.target.value))}
+                        />
+                      </div>
                       <button type="button" aria-label={`Remove milestone ${index + 1}`} onClick={() => removeMilestone(milestone.id)}>
                         <X size={17} />
                       </button>
                     </div>
                   ))}
+                </div>
+
+                <div className="milestone-payment-note">
+                  <div>
+                    <span>First milestone payment</span>
+                    <strong>{formatMoney(firstMilestonePayment)}</strong>
+                  </div>
+                  <div>
+                    <span>5% hub fee deducted</span>
+                    <strong>{formatMoney(serviceFee)}</strong>
+                  </div>
+                  <p>Balance after hub fee: <strong>{formatMoney(firstMilestoneBalance)}</strong></p>
                 </div>
 
                 <div className="step-actions">
@@ -524,6 +560,7 @@ export default function Home() {
                   <div><dt>Time</dt><dd>{startTime} – {endTime}</dd></div>
                   <div><dt>Project timeline</dt><dd>{formatDate(startDate)} – {formatDate(endDate)}</dd></div>
                   <div><dt>Milestones</dt><dd>{milestones.length}</dd></div>
+                  <div><dt>Milestone payments</dt><dd>{formatMoney(totalMilestonePayments)}</dd></div>
                 </dl>
 
                 <div className="fee-box">
@@ -532,13 +569,13 @@ export default function Home() {
                     <strong>5%</strong>
                   </div>
                   <p>Estimated fee: <strong>{formatMoney(serviceFee)}</strong></p>
-                  <small>Calculated from your project value of {formatMoney(projectValue)}.</small>
+                  <small>Deducted from first milestone payment of {formatMoney(firstMilestonePayment)}.</small>
                 </div>
 
                 <label className="consent-row">
                   <input type="checkbox" checked={feeAccepted} onChange={(event) => setFeeAccepted(event.target.checked)} />
                   <span className="custom-checkbox"><Check size={14} /></span>
-                  <span>I agree to the <strong>5% Chaise Hub service fee</strong> and workspace terms.</span>
+                  <span>I agree to the <strong>5% Chaise Hub service fee</strong> being deducted from the first milestone payment.</span>
                 </label>
 
                 {formError ? <p className="form-error" role="alert">{formError}</p> : null}
@@ -597,6 +634,7 @@ export default function Home() {
             <div className="pass-details">
               <div><span>Hub centre</span><strong>{formatHubName(pass.hubName)}</strong></div>
               <div><span>Date & time</span><strong>{formatDate(pass.workDate)} · {pass.time}</strong></div>
+              <div><span>First milestone</span><strong>{formatMoney(pass.firstMilestonePayment)} · fee {formatMoney(pass.serviceFee)}</strong></div>
               <div><span>Project</span><strong>{pass.projectName}</strong></div>
             </div>
 
