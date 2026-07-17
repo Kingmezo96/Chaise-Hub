@@ -2,6 +2,8 @@
 
 A responsive Next.js dashboard flow that lets freelancers book a Chaise Hub workspace for an active project and generate a secure QR check-in pass.
 
+Live: https://chaise-hub.vercel.app
+
 ## Included
 
 - Project name, details, timeline, value, and editable milestones
