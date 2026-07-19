@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import { Manrope, Sora } from "next/font/google";
 import "./globals.css";
+import "./kontract.css";
+
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
+const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
 export const metadata: Metadata = {
-  title: "Chaise Hub | Freelancer Workspace Pass",
-  description: "Book a Chaise Hub workspace for an active freelance project and generate a secure check-in pass.",
+  title: "Chaise Workspace | Kontract & Hub",
+  description: "Create Chaise contracts and book verified hub workspaces from one unified dashboard.",
 };
 
 export default function RootLayout({
@@ -12,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`${manrope.variable} ${sora.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

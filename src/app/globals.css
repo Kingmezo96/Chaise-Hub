@@ -59,6 +59,148 @@ a {
   transition: border-color 160ms ease, background 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
+.merged-interface {
+  background:
+    radial-gradient(circle at top left, rgba(255, 163, 24, 0.16), transparent 36vw),
+    linear-gradient(180deg, #fffdf8 0%, var(--background) 310px);
+  min-height: 100vh;
+  padding: 22px clamp(14px, 2.2vw, 34px) 54px;
+}
+
+.merged-hero {
+  align-items: stretch;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  margin: 0 auto 18px;
+  max-width: 1500px;
+}
+
+.merged-hero > div:first-child,
+.merged-source-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(224, 227, 232, 0.92);
+  border-radius: 24px;
+  box-shadow: 0 18px 50px rgba(16, 24, 40, 0.06);
+}
+
+.merged-hero > div:first-child {
+  padding: clamp(24px, 3.5vw, 44px);
+}
+
+.merged-eyebrow {
+  color: var(--brand-dark);
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.merged-hero h1 {
+  color: #101828;
+  font-size: clamp(30px, 4vw, 56px);
+  letter-spacing: -1.9px;
+  line-height: 1.04;
+  margin: 0;
+  max-width: 780px;
+}
+
+.merged-hero p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+  margin: 16px 0 0;
+  max-width: 780px;
+}
+
+.merged-source-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 26px;
+}
+
+.merged-source-card span {
+  color: var(--subtle);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.merged-source-card strong {
+  color: #101828;
+  font-size: 15px;
+  line-height: 1.45;
+  margin-top: 8px;
+  word-break: break-word;
+}
+
+.merged-switcher {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto 18px;
+  max-width: 1500px;
+}
+
+.merged-switcher button {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(224, 227, 232, 0.95);
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  text-align: left;
+}
+
+.merged-switcher button:hover,
+.merged-switcher button.active {
+  background: #ffffff;
+  border-color: var(--brand);
+  box-shadow: 0 16px 42px rgba(255, 163, 24, 0.16);
+  transform: translateY(-1px);
+}
+
+.merged-switcher span,
+.merged-switcher strong,
+.merged-switcher small {
+  display: block;
+}
+
+.merged-switcher span {
+  color: var(--brand-dark);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+
+.merged-switcher strong {
+  color: #101828;
+  font-size: 17px;
+}
+
+.merged-switcher small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 5px;
+}
+
+.merged-stage {
+  margin: 0 auto;
+  max-width: 1500px;
+}
+
+.merged-stage > .kontract-scope,
+.merged-stage > .app-shell {
+  border-radius: 24px;
+  overflow: hidden;
+}
+
 .app-shell {
   min-height: 100vh;
   padding: 18px clamp(18px, 2.25vw, 34px) 46px;

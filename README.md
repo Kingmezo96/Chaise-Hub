@@ -1,15 +1,15 @@
-# Chaise Hub
+# Chaise Workspace
 
-A responsive Next.js dashboard flow that lets freelancers book a Chaise Hub workspace for an active project and generate a secure QR check-in pass.
+A responsive Next.js workspace that combines the Kontract direct-contract flow with the Chaise Hub booking and QR pass flow in one interface.
 
 Live: https://kontract-beige.vercel.app
 
 ## Included
 
-- Project name, details, timeline, value, and editable milestones
-- Hub centre, work date, and working hours
-- Estimated 5% Chaise Hub service fee with explicit consent
-- Unique access code and downloadable QR pass
+- Unified switcher for Kontract and Chaise Hub
+- Direct contract creation, preview, client review link, and demo escrow funding
+- Hub centre selection, project details, schedule, 5% hub fee consent, and QR pass generation
+- Cafe One by Sterling and partner Nigerian workspace options
 - Responsive desktop and mobile dashboard layouts
 
 ## Run locally
