@@ -108,7 +108,7 @@ const partnerHubs: HubOption[] = [
 
 const hubs = [...cafeOneHubs, ...partnerHubs];
 
-const topNavigation = ["Find Jobs", "Dashboard", "Proposals", "Messages", "Wallet", "Hub"];
+const topNavigation = ["Find Jobs", "Dashboard", "Proposals", "Messages", "Wallet", "Hub", "Contract"];
 
 const categories = [
   "Accounting & consulting",
@@ -293,7 +293,7 @@ export default function Home() {
 
         <nav className={`top-navigation ${mobileNavOpen ? "is-open" : ""}`} aria-label="Primary">
           {topNavigation.map((item) => (
-            <a className={item === "Hub" ? "active" : ""} href="#hub-booking" key={item}>
+            <a className={item === "Hub" ? "active" : ""} href={item === "Contract" ? "/contract" : "#hub-booking"} key={item}>
               {item}
             </a>
           ))}
