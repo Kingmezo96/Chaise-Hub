@@ -16,13 +16,6 @@ type Milestone = {
 
 type FieldErrors = Partial<Record<"clientEmail" | "projectTitle" | "scope" | "deadline" | "fixedAmount" | "hourlyRate", string>>;
 
-type InboxMessage = {
-  id: string;
-  name: string;
-  body: string;
-  createdAt: string;
-};
-
 const createInitialMilestones = (): Milestone[] => [
   { id: "milestone-1", title: "", dueDate: "", amount: "" },
   { id: "milestone-2", title: "", dueDate: "", amount: "" },
@@ -78,24 +71,9 @@ export function ContractApp() {
   const [reference, setReference] = useState("CH-DC-260718");
   const [toast, setToast] = useState("");
   const [minimumDeadline] = useState(nextDay);
-  const [inboxMessages, setInboxMessages] = useState<InboxMessage[]>([]);
 
   useEffect(() => {
-    const refreshInbox = () => {
-      try {
-        setInboxMessages(JSON.parse(window.localStorage.getItem("kontract:freelancer-inbox") || "[]") as InboxMessage[]);
-      } catch {
-        window.localStorage.removeItem("kontract:freelancer-inbox");
-        setInboxMessages([]);
-      }
-    };
-    const frame = window.requestAnimationFrame(refreshInbox);
-    window.addEventListener("storage", refreshInbox);
-    window.addEventListener("kontract-inbox-updated", refreshInbox);
     return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("storage", refreshInbox);
-      window.removeEventListener("kontract-inbox-updated", refreshInbox);
       if (toastTimer.current) clearTimeout(toastTimer.current);
     };
   }, []);
@@ -323,9 +301,9 @@ export function ContractApp() {
         </div>
       </header>
 
-      <nav className="category-nav" aria-label="Job categories">
+      <nav className="category-bar" aria-label="Job categories">
         <button type="button" aria-label="Previous categories"><Icon><path d="m15 18-6-6 6-6" /></Icon></button>
-        <div className="category-track">
+        <div className="category-list">
           {["Accounting & consulting", "Admin support", "Customer service", "Data science and analytics", "Design & creative", "Engineering & architecture", "IT & networking", "Legal", "Sales and marketing"].map((item) => <a href="#contract" key={item}>{item}</a>)}
         </div>
         <button type="button" aria-label="Next categories"><Icon><path d="m9 18 6-6-6-6" /></Icon></button>
@@ -333,18 +311,28 @@ export function ContractApp() {
 
       <div className="page-grid">
         <aside className="sidebar">
-          <section className="profile-card card">
-            <div className="avatar" aria-hidden="true"><span>Mezo</span></div>
-            <h2>Chibuzo Ogbonnaya</h2>
-            <button className="secondary-button full-width" type="button">View profile</button>
+          <section className="profile-card">
+            <div className="profile-avatar">CO</div>
+            <div>
+              <strong>Chibuzo Ogbonnaya</strong>
+              <span>Brand & product designer</span>
+            </div>
+            <button type="button">View profile</button>
           </section>
-          <section className="availability-card card">
-            <div className="card-row"><strong>Availability</strong><label className="switch" aria-label="Availability"><input type="checkbox" defaultChecked /><span /></label></div>
-            <p>While unavailable, your Gigs are hidden and you will not receive new orders.</p>
+          <section className="availability-card">
+            <div>
+              <strong>Availability</strong>
+              <span className="availability-toggle" aria-label="Available"><span /></span>
+            </div>
+            <p>While unavailable, your hub bookings are paused and you will not receive new workspace offers.</p>
           </section>
-          <section className="messages-card card">
-            <div className="card-row"><strong>Messages</strong>{inboxMessages.length > 0 && <span className="message-count">{inboxMessages.length}</span>}</div>
-            {inboxMessages.length > 0 ? <div className="messages-list">{inboxMessages.slice(0, 3).map((message) => <button type="button" key={message.id}><span className="message-sender">{message.name.slice(0, 2).toUpperCase()}</span><span><strong>{message.name}</strong><small>{message.body}</small></span></button>)}<a href="#contract">Open contract inbox</a></div> : <div className="messages-empty"><Icon><path d="M5 5h14v11H9l-4 3V5Z" /></Icon><span>No messages yet</span><a href="#contract">Open inbox</a></div>}
+          <section className="messages-card">
+            <strong>Messages</strong>
+            <div>
+              <Icon><path d="M5 5h14v11H9l-4 3V5Z" /></Icon>
+              <span>No messages yet</span>
+              <a href="#contract">Open inbox</a>
+            </div>
           </section>
         </aside>
 

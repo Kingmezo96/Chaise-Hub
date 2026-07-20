@@ -22,7 +22,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: "Manrope", "Manrope Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Sora", "Sora Fallback", ui-monospace, monospace;
+  --font-mono: "Manrope", "Manrope Fallback", ui-sans-serif, system-ui, sans-serif;
 }
 
 * {
@@ -248,7 +248,7 @@ a {
 .category-list a {
   color: #1d2939;
   flex: 0 0 auto;
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
@@ -313,7 +313,7 @@ a {
 }
 
 .profile-card strong {
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: 18px;
   margin-bottom: 5px;
 }
@@ -455,7 +455,7 @@ a {
 }
 
 .hero-card h1 {
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: clamp(25px, 2.4vw, 27px);
   font-weight: 600;
   letter-spacing: -0.5px;
@@ -514,7 +514,7 @@ a {
   color: var(--subtle);
   display: flex;
   border-radius: 8px;
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: 13px;
   font-weight: 600;
   gap: 10px;
@@ -589,7 +589,7 @@ a {
 }
 
 .section-heading h2 {
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.35px;
@@ -742,7 +742,7 @@ a {
 }
 
 .milestone-header h3 {
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: 16px;
   margin: 0 0 3px;
 }
@@ -884,13 +884,13 @@ a {
 
 .secondary-button {
   align-items: center;
-  background: #101828;
-  border: 0;
-  border-radius: 9px;
-  color: #fff;
+  background: #fff;
+  border: 1.5px solid var(--brand);
+  border-radius: 999px;
+  color: #663f03;
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: 12px;
   font-weight: 600;
   gap: 8px;
@@ -899,8 +899,8 @@ a {
 }
 
 .secondary-button:hover {
-  background: #1d2939;
-  box-shadow: 0 8px 18px rgba(16, 24, 40, 0.14);
+  background: var(--brand-soft);
+  box-shadow: none;
   transform: translateY(-1px);
 }
 
@@ -1096,7 +1096,7 @@ a {
 .primary-button {
   background: var(--brand);
   color: #2c1b00;
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   font-size: 13px;
   gap: 9px;
   margin-top: 16px;
@@ -1259,7 +1259,7 @@ a {
   background: #f9fafb;
   border-radius: 8px;
   display: flex;
-  font-family: "Geist Mono", monospace;
+  font-family: var(--font-manrope), Arial, sans-serif;
   font-size: 12px;
   font-weight: 700;
   gap: 8px;
@@ -1544,7 +1544,7 @@ a {
   }
 }
 
-@media (min-width: 901px) {
+@media (min-width: 1181px) {
   .app-shell {
     padding: 24px 30px 64px;
   }
