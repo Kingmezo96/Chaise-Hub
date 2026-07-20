@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import type { ContractProposal } from "@/lib/contracts";
 
@@ -284,11 +285,8 @@ export function ContractApp() {
     <div className="kontract-scope">
       <main className="app-shell">
       <header className="topbar">
-        <a className="brand" href="#contract" aria-label="Chaise home">
-          <Image src="https://chaise.app/assets/images/chaise_yellow.png" alt="chaise" width={81} height={32} priority />
-        </a>
         <button
-          className="mobile-menu-button icon-button"
+          className="mobile-menu-button"
           type="button"
           aria-label="Open navigation"
           aria-expanded={mobileMenuOpen}
@@ -296,7 +294,12 @@ export function ContractApp() {
         >
           <Icon><path d="M4 7h16M4 12h16M4 17h16" /></Icon>
         </button>
-        <nav className={`primary-nav${mobileMenuOpen ? " open" : ""}`} aria-label="Primary navigation">
+
+        <Link className="brand" href="/" aria-label="Chaise home">
+          chaise<span>.</span>
+        </Link>
+
+        <nav className={`primary-nav top-navigation${mobileMenuOpen ? " open is-open" : ""}`} aria-label="Primary navigation">
           {[
             "Find Jobs",
             "Dashboard",
@@ -304,13 +307,19 @@ export function ContractApp() {
             "Messages",
             "Wallet",
             "Hub",
-          ].map((item) => <a href={item === "Hub" ? "/" : "#contract"} key={item} onClick={() => setMobileMenuOpen(false)}>{item}</a>)}
-          <a className="active" href="/contract" aria-current="page" onClick={() => setMobileMenuOpen(false)}>Contract</a>
+          ].map((item) =>
+            item === "Hub" ? (
+              <Link href="/" key={item} onClick={() => setMobileMenuOpen(false)}>{item}</Link>
+            ) : (
+              <a href="#contract" key={item} onClick={() => setMobileMenuOpen(false)}>{item}</a>
+            ),
+          )}
+          <Link className="active" href="/contract" aria-current="page" onClick={() => setMobileMenuOpen(false)}>Contract</Link>
         </nav>
-        <div className="topbar-actions">
+        <div className="topbar-actions top-actions">
           <button className="icon-button" type="button" aria-label="Search"><Icon><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></Icon></button>
-          <button className="icon-button" type="button" aria-label="Notifications"><Icon><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 8.5h18C21 16 18 16 18 9Z" /><path d="M9.6 21h4.8" /></Icon></button>
-          <button className="profile-menu" type="button" aria-label="Open profile menu"><span className="profile-mark">Mezo</span><Icon><path d="m8 10 4 4 4-4" /></Icon></button>
+          <button className="icon-button notification-button" type="button" aria-label="Notifications"><Icon><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 8.5h18C21 16 18 16 18 9Z" /><path d="M9.6 21h4.8" /></Icon><span /></button>
+          <button className="profile-menu profile-button" type="button" aria-label="Open profile menu"><span className="profile-mark">CO</span><Icon><path d="m8 10 4 4 4-4" /></Icon></button>
         </div>
       </header>
 
