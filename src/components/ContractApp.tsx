@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type DragEvent } from "react";
+import { DashboardChrome } from "@/components/DashboardChrome";
 import type { ContractProposal } from "@/lib/contracts";
 
 type ContractType = "fixed" | "hourly" | "milestones";
@@ -50,7 +50,6 @@ export function ContractApp() {
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contractType, setContractType] = useState<ContractType>("fixed");
   const [clientEmail, setClientEmail] = useState("");
   const [projectTitle, setProjectTitle] = useState("");
@@ -260,83 +259,9 @@ export function ContractApp() {
   const revisionLabel = revisions === "unlimited" ? "Unlimited" : `${revisions} revision${revisions === "1" ? "" : "s"}`;
 
   return (
-    <div className="kontract-scope">
-      <main className="app-shell">
-      <header className="topbar">
-        <button
-          className="mobile-menu-button"
-          type="button"
-          aria-label="Open navigation"
-          aria-expanded={mobileMenuOpen}
-          onClick={() => setMobileMenuOpen((open) => !open)}
-        >
-          <Icon><path d="M4 7h16M4 12h16M4 17h16" /></Icon>
-        </button>
-
-        <Link className="brand" href="/" aria-label="Chaise home">
-          chaise<span>.</span>
-        </Link>
-
-        <nav className={`primary-nav top-navigation${mobileMenuOpen ? " open is-open" : ""}`} aria-label="Primary navigation">
-          {[
-            "Find Jobs",
-            "Dashboard",
-            "Proposals",
-            "Messages",
-            "Wallet",
-            "Hub",
-          ].map((item) =>
-            item === "Hub" ? (
-              <Link href="/" key={item} onClick={() => setMobileMenuOpen(false)}>{item}</Link>
-            ) : (
-              <a href="#contract" key={item} onClick={() => setMobileMenuOpen(false)}>{item}</a>
-            ),
-          )}
-          <Link className="active" href="/contract" aria-current="page" onClick={() => setMobileMenuOpen(false)}>Contract</Link>
-        </nav>
-        <div className="topbar-actions top-actions">
-          <button className="icon-button" type="button" aria-label="Search"><Icon><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></Icon></button>
-          <button className="icon-button notification-button" type="button" aria-label="Notifications"><Icon><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 8.5h18C21 16 18 16 18 9Z" /><path d="M9.6 21h4.8" /></Icon><span /></button>
-          <button className="profile-menu profile-button" type="button" aria-label="Open profile menu"><span className="profile-mark">CO</span><Icon><path d="m8 10 4 4 4-4" /></Icon></button>
-        </div>
-      </header>
-
-      <nav className="category-bar" aria-label="Job categories">
-        <button type="button" aria-label="Previous categories"><Icon><path d="m15 18-6-6 6-6" /></Icon></button>
-        <div className="category-list">
-          {["Accounting & consulting", "Admin support", "Customer service", "Data science and analytics", "Design & creative", "Engineering & architecture", "IT & networking", "Legal", "Sales and marketing"].map((item) => <a href="#contract" key={item}>{item}</a>)}
-        </div>
-        <button type="button" aria-label="Next categories"><Icon><path d="m9 18 6-6-6-6" /></Icon></button>
-      </nav>
-
-      <div className="page-grid">
-        <aside className="sidebar">
-          <section className="profile-card">
-            <div className="profile-avatar">CO</div>
-            <div>
-              <strong>Chibuzo Ogbonnaya</strong>
-              <span>Brand & product designer</span>
-            </div>
-            <button type="button">View profile</button>
-          </section>
-          <section className="availability-card">
-            <div>
-              <strong>Availability</strong>
-              <span className="availability-toggle" aria-label="Available"><span /></span>
-            </div>
-            <p>While unavailable, your hub bookings are paused and you will not receive new workspace offers.</p>
-          </section>
-          <section className="messages-card">
-            <strong>Messages</strong>
-            <div>
-              <Icon><path d="M5 5h14v11H9l-4 3V5Z" /></Icon>
-              <span>No messages yet</span>
-              <a href="#contract">Open inbox</a>
-            </div>
-          </section>
-        </aside>
-
-        <section className="contract-workspace" id="contract" ref={workspaceRef}>
+    <DashboardChrome activePage="contract" contentClassName="content" contentId="contract">
+      <div className="kontract-scope">
+        <section className="contract-workspace" ref={workspaceRef}>
           <div className="workspace-heading">
             <div><span className="eyebrow">Direct contract</span><h1>Create a contract</h1><p>Bring your client to Chaise and let us handle payments, escrow and project protection.</p></div>
             <div className="secure-pill"><Icon><path d="M12 3 5 6v5c0 4.6 2.9 8.2 7 10 4.1-1.8 7-5.4 7-10V6l-7-3Z" /><path d="m9 12 2 2 4-4" /></Icon>Secure escrow</div>
@@ -490,9 +415,8 @@ export function ContractApp() {
             </section>
           )}
         </section>
-      </div>
       <div className={`toast${toast ? " show" : ""}`} role="status" aria-live="polite">{toast}</div>
-      </main>
-    </div>
+      </div>
+    </DashboardChrome>
   );
 }

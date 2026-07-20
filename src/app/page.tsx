@@ -1,23 +1,18 @@
 "use client";
 
 import {
-  Bell,
   Building2,
   CalendarDays,
   Check,
   CheckCircle2,
   ChevronDown,
-  ChevronLeft,
   ChevronRight,
   Clock3,
   Copy,
   Download,
   FileText,
   MapPin,
-  Menu,
-  MessageSquareText,
   Plus,
-  Search,
   ShieldCheck,
   Sparkles,
   Star,
@@ -25,6 +20,7 @@ import {
 } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import { FormEvent, useMemo, useState } from "react";
+import { DashboardChrome } from "@/components/DashboardChrome";
 
 type Milestone = {
   id: number;
@@ -108,20 +104,6 @@ const partnerHubs: HubOption[] = [
 
 const hubs = [...cafeOneHubs, ...partnerHubs];
 
-const topNavigation = ["Find Jobs", "Dashboard", "Proposals", "Messages", "Wallet", "Hub", "Contract"];
-
-const categories = [
-  "Accounting & consulting",
-  "Admin support",
-  "Customer service",
-  "Data science and analytics",
-  "Design & creative",
-  "Engineering & architecture",
-  "IT & networking",
-  "Legal",
-  "Sales and marketing",
-];
-
 function formatMoney(value: number) {
   return new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -162,7 +144,6 @@ function Step({ number, label, active, done }: { number: number; label: string; 
 }
 
 export default function Home() {
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [projectName, setProjectName] = useState("NovaPay brand identity rollout");
   const [projectDetails, setProjectDetails] = useState(
     "Complete the final brand guidelines, social templates, and handover files for the client.",
@@ -276,80 +257,7 @@ export default function Home() {
     : "";
 
   return (
-    <main className="app-shell">
-      <header className="topbar">
-        <button
-          className="mobile-menu-button"
-          type="button"
-          aria-label="Open menu"
-          onClick={() => setMobileNavOpen((value) => !value)}
-        >
-          {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-
-        <a className="brand" href="#" aria-label="Chaise home">
-          chaise<span>.</span>
-        </a>
-
-        <nav className={`top-navigation ${mobileNavOpen ? "is-open" : ""}`} aria-label="Primary">
-          {topNavigation.map((item) => (
-            <a className={item === "Hub" ? "active" : ""} href={item === "Contract" ? "/contract" : "#hub-booking"} key={item}>
-              {item}
-            </a>
-          ))}
-        </nav>
-
-        <div className="top-actions">
-          <button type="button" aria-label="Search"><Search size={19} /></button>
-          <button type="button" aria-label="Notifications" className="notification-button">
-            <Bell size={19} />
-            <span />
-          </button>
-          <button className="profile-button" type="button" aria-label="Open profile menu">
-            <span>CO</span>
-            <ChevronDown size={16} />
-          </button>
-        </div>
-      </header>
-
-      <nav className="category-bar" aria-label="Job categories">
-        <button type="button" aria-label="Previous categories"><ChevronLeft size={22} /></button>
-        <div className="category-list">
-          {categories.map((category) => <a href="#" key={category}>{category}</a>)}
-        </div>
-        <button type="button" aria-label="Next categories"><ChevronRight size={22} /></button>
-      </nav>
-
-      <div className="dashboard-layout">
-        <aside className="sidebar">
-          <section className="profile-card">
-            <div className="profile-avatar">CO</div>
-            <div>
-              <strong>Chibuzo Ogbonnaya</strong>
-              <span>Brand & product designer</span>
-            </div>
-            <button type="button">View profile</button>
-          </section>
-
-          <section className="availability-card">
-            <div>
-              <strong>Availability</strong>
-              <span className="availability-toggle" aria-label="Available"><span /></span>
-            </div>
-            <p>While unavailable, your hub bookings are paused and you will not receive new workspace offers.</p>
-          </section>
-
-          <section className="messages-card">
-            <strong>Messages</strong>
-            <div>
-              <MessageSquareText size={27} strokeWidth={1.6} />
-              <span>No messages yet</span>
-              <a href="#">Open inbox</a>
-            </div>
-          </section>
-        </aside>
-
-        <section className="content" id="hub-booking">
+    <DashboardChrome activePage="hub" contentId="hub-booking">
           <div className="hero-card">
             <div>
               <span className="eyebrow"><Sparkles size={15} /> Focus. Connect. Deliver.</span>
@@ -597,9 +505,6 @@ export default function Home() {
               </section>
             </aside>
           </form>
-        </section>
-      </div>
-
       {pass ? (
         <div className="modal-backdrop" role="presentation">
           <section className="pass-modal" role="dialog" aria-modal="true" aria-labelledby="pass-title">
@@ -644,7 +549,7 @@ export default function Home() {
           </section>
         </div>
       ) : null}
-    </main>
+    </DashboardChrome>
   );
 }
 
