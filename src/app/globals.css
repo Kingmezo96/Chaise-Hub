@@ -61,31 +61,31 @@ a {
 
 .app-shell {
   min-height: 100vh;
-  padding: 16px clamp(20px, 4vw, 64px) 64px;
+  padding: 24px 30px 64px;
 }
 
 .topbar {
   align-items: center;
   background: #f0f1f3;
   border: 1px solid #e0e3e8;
-  border-radius: 999px;
+  border-radius: 58px;
   display: grid;
-  gap: 28px;
+  gap: 44px;
   grid-template-columns: auto 1fr auto;
   margin: 0 auto;
-  max-width: 1192px;
-  min-height: 72px;
-  padding: 10px 20px 10px 30px;
+  max-width: none;
+  min-height: 96px;
+  padding: 14px 28px 14px 38px;
   position: sticky;
-  top: 14px;
+  top: 24px;
   z-index: 30;
 }
 
 .brand {
   color: var(--brand);
-  font-size: 35px;
+  font-size: 42px;
   font-weight: 700;
-  letter-spacing: -2.1px;
+  letter-spacing: -2.6px;
   line-height: 1;
   text-decoration: none;
 }
@@ -97,13 +97,13 @@ a {
 .top-navigation {
   align-items: center;
   display: flex;
-  gap: clamp(20px, 3vw, 48px);
+  gap: 34px;
 }
 
 .top-navigation a {
   color: #344054;
   font-family: var(--font-manrope), sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   position: relative;
   text-decoration: none;
@@ -111,13 +111,13 @@ a {
 
 .top-navigation a:first-child {
   margin-right: 4px;
-  padding-right: 28px;
+  padding-right: 34px;
 }
 
 .top-navigation a:first-child::after {
   background: #d0d5dd;
   content: "";
-  height: 23px;
+  height: 32px;
   position: absolute;
   right: 0;
   top: 50%;
@@ -137,7 +137,7 @@ a {
 .top-actions {
   align-items: center;
   display: flex;
-  gap: 10px;
+  gap: 14px;
 }
 
 .top-actions > button:not(.profile-button) {
@@ -148,9 +148,9 @@ a {
   color: #344054;
   cursor: pointer;
   display: flex;
-  height: 42px;
+  height: 58px;
   justify-content: center;
-  width: 42px;
+  width: 58px;
 }
 
 .top-actions > button:hover {
@@ -168,8 +168,8 @@ a {
   border-radius: 50%;
   height: 8px;
   position: absolute;
-  right: 6px;
-  top: 5px;
+  right: 10px;
+  top: 9px;
   width: 8px;
 }
 
@@ -180,7 +180,7 @@ a {
   color: #344054;
   cursor: pointer;
   display: flex;
-  gap: 9px;
+  gap: 14px;
   padding: 0 2px 0 0;
 }
 
@@ -191,11 +191,11 @@ a {
   border-radius: 50%;
   color: var(--brand-dark);
   display: flex;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 750;
-  height: 42px;
+  height: 58px;
   justify-content: center;
-  width: 42px;
+  width: 58px;
 }
 
 .mobile-menu-button {
@@ -1541,6 +1541,43 @@ a {
 
   .pass-modal {
     padding: 24px 18px 18px;
+  }
+}
+
+@media (min-width: 901px) {
+  .app-shell {
+    padding: 24px 30px 64px;
+  }
+
+  .topbar {
+    gap: 44px;
+    max-width: none;
+    min-height: 96px;
+    padding: 14px 28px 14px 38px;
+    top: 24px;
+  }
+
+  .brand {
+    font-size: 42px;
+    letter-spacing: -2.6px;
+  }
+
+  .top-navigation {
+    gap: 34px;
+  }
+
+  .top-navigation a {
+    font-size: 18px;
+  }
+
+  .top-actions {
+    gap: 14px;
+  }
+
+  .top-actions > button:not(.profile-button),
+  .profile-button > span {
+    height: 58px;
+    width: 58px;
   }
 }
 
